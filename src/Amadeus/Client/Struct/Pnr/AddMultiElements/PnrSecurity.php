@@ -20,24 +20,33 @@
  * @license https://opensource.org/licenses/Apache-2.0 Apache 2.0
  */
 
-namespace Amadeus\Client\RequestOptions;
+namespace Amadeus\Client\Struct\Pnr\AddMultiElements;
 
-use Amadeus\Client\RequestOptions\MiniRule\Language;
+use Amadeus\Client\RequestOptions\Pnr\Element\PnrSecurity as SecurityReOpts;
 
 /**
- * MiniRule_GetFromRec Request Options
+ * PnrSecurity
  *
- * @package Amadeus\Client\RequestOptions
- * @author Aleksandr Kalugin <xkalugin@gmail.com>
+ * @package Amadeus\Client\Struct\Pnr\AddMultiElements
+ * @author Dieter Devlieghere <dermikagh@gmail.com>
  */
-class MiniRuleGetFromRecOptions extends Base
+class PnrSecurity
 {
     /**
-     * @var null|Language
+     * @var Security[]
      */
-    public $language;
+    public $security;
+
+    public $securityInfo;
+
     /**
-     * @var MiniRule\Pricing[]
+     * @var string
      */
-    public $pricings;
+    public $indicator;
+
+    public function __construct(SecurityReOpts $securityReq)
+    {
+        $this->indicator = $securityReq->indicator;
+        $this->security[] = new Security($securityReq->identification, $securityReq->accessMode);
+    }
 }
